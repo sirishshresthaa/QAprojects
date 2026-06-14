@@ -97,7 +97,7 @@ Full test plan document for the EMS project at Leapfrog Technology.
 
 ## 📋 Test Plans
 
-[📄 View EMS Test Plan](EMS_Test_Plan.docx)
+[📄 View EMS Test Plan](EMS_Test_Plan.pdf)
 
 
 ---
