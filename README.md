@@ -84,14 +84,14 @@ Full test plan document for the EMS project at Leapfrog Technology.
 
 ## 🐛 Bug Reports (JIRA)
 
-### Bug Report 1
+### Bug Report 1(Backend Bug)
 ![Bug - Signup button under Assessment During the Interview redirects to 404](docs/bug-reports/Bugreport1.jpg)
 
-### Bug Report 2
+### Bug Report 2(Low Severity/Medium Priority bug)
 ![Bug - Forgot password flow accepts unregistered emails](docs/bug-reports/Bugreport2.jpg)
 
-### Bug Report 3
-![Bug - Signup button under Assessment During the Interview redirects to 404](docs/bug-reports/Bugreport3.jpg)
+### Bug Report 3(Browser Specific Bug/ShieldsUp)
+![Bug - Courses page displays blank screen in Brave browser with Shields enabled](docs/bug-reports/Bugreport3.jpg)
 
 ---
 
