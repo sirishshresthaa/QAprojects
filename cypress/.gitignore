@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Cypress auto-generated
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local

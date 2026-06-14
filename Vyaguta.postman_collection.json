@@ -1,0 +1,391 @@
+{
+  "info": {
+    "_postman_id": "cc7c3ab9-2947-4327-b401-5f591fc1ec56",
+    "name": "Vyaguta",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54961390",
+    "_collection_link": "https://go.postman.co/collection/54961390-cc7c3ab9-2947-4327-b401-5f591fc1ec56?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "CreateEvents",
+      "item": [
+        {
+          "name": "CreateEvent",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// 1. Parse the response\r",
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "// 2. Save the ID first\r",
+                  "const id = jsonData.id;\r",
+                  "pm.environment.set(\"eventId\", id);\r",
+                  "\r",
+                  "// 3. Status code assertion\r",
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "// 4. Payload assertions\r",
+                  "pm.test(\"Event name matches\", function () {\r",
+                  "    pm.expect(jsonData.name).to.eql(pm.environment.get(\"eventName\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Description matches\", function () {\r",
+                  "    pm.expect(jsonData.description).to.eql(pm.environment.get(\"description\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Link matches\", function () {\r",
+                  "    pm.expect(jsonData.link).to.eql(pm.environment.get(\"link\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Event date matches\", function () {\r",
+                  "    pm.expect(jsonData.eventDate).to.eql(pm.environment.get(\"eventDate\"));\r",
+                  "});\r",
+                  "\r",
+                  "// 5. ID exists in response\r",
+                  "pm.test(\"Event ID exists\", function () {\r",
+                  "    pm.expect(jsonData.id).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var eventname = \"Testing Event\";\r",
+                  "var description = \"Test description\";\r",
+                  "var link = \"https://example.com\";\r",
+                  "var eventDate = \"2026-05-03\";\r",
+                  "var bearerToken = \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjo0NDYsImF2YXRhclVybCI6Imh0dHBzOi8vZGV2LWltYWdlLnZ5YWd1dGEubGZ0ZWNobm9sb2d5LmNvbS5ucC9lbXBsb3llZS80OC85OTAucG5nIiwiY3ZVcmwiOiIiLCJlbXBJZCI6Ijk5MCIsImVtcFN0YXR1cyI6IlBlcm1hbmVudCIsImZpcnN0TmFtZSI6IlJvYmluIiwibGFzdE5hbWUiOiJLYXJraSIsImVtYWlsIjoic2Fyb2prYXJraUBsZnRlY2hub2xvZ3kuY29tIiwiZ2VuZGVyIjoiTUFMRSIsImdpdGh1YklkIjoiYXMiLCJpc0hvZCI6ZmFsc2UsImlzSHIiOmZhbHNlLCJpc1JhZmZsZUVsaWdpYmxlIjpmYWxzZSwiaXNTdXBlcnZpc29yIjpmYWxzZSwibWlkZGxlTmFtZSI6bnVsbCwibW9iaWxlUGhvbmUiOiIxMzU3OTg3NjUxIiwidGVtcG9yYXJ5QWRkcmVzcyI6ImFzIiwiYmxvb2RHcm91cCI6IkEtIiwiaXNQcm9qZWN0TWFuYWdlciI6ZmFsc2UsImlzVGVhbUxlYWQiOmZhbHNlLCJpc0FjY291bnRNYW5hZ2VyIjp0cnVlLCJpc0NvYWNoIjpmYWxzZSwiaXNQZW9wbGVPcHMiOmZhbHNlLCJpc1Byb3h5cG0iOmZhbHNlLCJpc1Jlc291cmNlTWFuYWdlciI6ZmFsc2UsImNvYWNoSWQiOjQwMCwic3VwZXJ2aXNvcklkIjo0MzMsImxlYXZlSXNzdWVySWQiOjQzMywicGVybWFuZW50QWRkcmVzcyI6ImFzIiwic2t5cGVJZCI6ImFzIiwiaG9tZVBob25lIjoiIiwiZGF0ZW9mQmlydGgiOiIyMDIwLTEwLTE2VDAwOjAwOjAwLjAwMFoiLCJqb2luRGF0ZSI6IjIwMjAtMDQtMDhUMDA6MDA6MDAuMDAwWiIsIm1hcml0aWFsU3RhdHVzIjoiTWFycmllZCIsImRlcGFydG1lbnRJZCI6MTcsInVzZXJuYW1lIjoic2Fyb2prYXJraUBsZnRlY2hub2xvZ3kuY29tIiwiaXNUZWFtTWFuYWdlciI6dHJ1ZSwiZGVzaWduYXRpb25JZCI6NCwiYXJlYUlkIjo0LCJkZXNpZ25hdGlvbiI6eyJpZCI6NCwibmFtZSI6IlNlbmlvciBTb2Z0d2FyZSBFbmdpbmVlciIsImFyZWEiOnsiaWQiOjQsIm5hbWUiOiJRQSJ9fX0sImlhdCI6MTc3OTY4ODMzNywiZXhwIjoxNzc5NzE3MTM3fQ.VuCAZgP-B4cC0zx1hOdDsnfKI0dh1g9NUCNCzaT65ps\";\r",
+                  "\r",
+                  "// setting them in the environment\r",
+                  "pm.environment.set(\"eventname\", eventname);\r",
+                  "pm.environment.set(\"description\", description);\r",
+                  "pm.environment.set(\"link\", link);\r",
+                  "pm.environment.set(\"eventDate\", eventDate);\r",
+                  "pm.environment.set(\"bearerToken\", bearerToken);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Testing event \",\r\n    \"description\": \"description\",\r\n    \"link\": \"link\",\r\n    \"eventDate\": \"2026-05-03\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/core/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetEvent",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseBody = pm.response.json();\r",
+                  "\r",
+                  "console.log(responseBody.data[0].id);\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/core/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteEVent",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var name = \"{{name}}\"; \r",
+                  "var description = \"{{description}}\";\r",
+                  "var link = \"{{link}}\";\r",
+                  "var eventDate = \"{{2026-05-03}}\";\r",
+                  "var bearerToken = \"{{bearerToken}}\";\t"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// parse response\r",
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "// status check\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "// error code is 404\r",
+                  "pm.test(\"Error code is 404\", function () {\r",
+                  "    pm.expect(jsonData.error.code).to.eql(404);\r",
+                  "});\r",
+                  "\r",
+                  "// error message is Not Found\r",
+                  "pm.test(\"Error message is Not Found\", function () {\r",
+                  "    pm.expect(jsonData.error.message).to.eql(\"Not Found\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/core/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "events"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "ValidateSchema",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "CreateEventWithoutName",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var name = \"{{name}}\"; \r",
+                  "var description = \"{{description}}\";\r",
+                  "var link = \"{{link}}\";\r",
+                  "var eventDate = \"{{2026-05-03}}\";\r",
+                  "var bearerToken = \"{{bearerToken}}\";\t"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const Ajv = require('ajv');\r",
+                  "const ajv = new Ajv();\r",
+                  "\r",
+                  "// parse response\r",
+                  "var jsonData = pm.response.json();\r",
+                  "\r",
+                  "// status check\r",
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "// error object exists\r",
+                  "pm.test(\"Error object exists\", function () {\r",
+                  "    pm.expect(jsonData.error).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "// error code is 400\r",
+                  "pm.test(\"Error code is 400\", function () {\r",
+                  "    pm.expect(jsonData.error.code).to.eql(400);\r",
+                  "});\r",
+                  "\r",
+                  "// error message is Bad Request\r",
+                  "pm.test(\"Error message is Bad Request\", function () {\r",
+                  "    pm.expect(jsonData.error.message).to.eql(\"Bad Request\");\r",
+                  "});\r",
+                  "\r",
+                  "// details array exists and is not empty\r",
+                  "pm.test(\"Details array exists\", function () {\r",
+                  "    pm.expect(jsonData.error.details).to.be.an(\"array\").that.is.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "// details message says name is required\r",
+                  "pm.test(\"Details says name is required\", function () {\r",
+                  "    pm.expect(jsonData.error.details[0].message).to.eql(\"\\\"name\\\" is required\");\r",
+                  "});\r",
+                  "\r",
+                  "// param points to name field\r",
+                  "pm.test(\"Param is name\", function () {\r",
+                  "    pm.expect(jsonData.error.details[0].param).to.include(\"name\");\r",
+                  "});\r",
+                  "\r",
+                  "// schema\r",
+                  "var schema = {\r",
+                  "    type: \"object\",\r",
+                  "    properties: {\r",
+                  "        error: {\r",
+                  "            type: \"object\",\r",
+                  "            properties: {\r",
+                  "                code: { type: \"number\" },\r",
+                  "                message: { type: \"string\" },\r",
+                  "                details: {\r",
+                  "                    type: \"array\",\r",
+                  "                    items: {\r",
+                  "                        type: \"object\",\r",
+                  "                        properties: {\r",
+                  "                            message: { type: \"string\" },\r",
+                  "                            param: {\r",
+                  "                                type: \"array\",\r",
+                  "                                items: { type: \"string\" }\r",
+                  "                            }\r",
+                  "                        },\r",
+                  "                        required: [\"message\", \"param\"]\r",
+                  "                    }\r",
+                  "                }\r",
+                  "            },\r",
+                  "            required: [\"code\", \"message\", \"details\"]\r",
+                  "        }\r",
+                  "    },\r",
+                  "    required: [\"error\"]\r",
+                  "};\r",
+                  "\r",
+                  "// validate schema\r",
+                  "pm.test(\"Schema is valid\", function () {\r",
+                  "    pm.expect(ajv.validate(schema, jsonData)).to.be.true;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \r\n    \"description\": \"description\",\r\n    \"link\": \"link\",\r\n    \"eventDate\": \"2026-05-03\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/core/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "core",
+                "events"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjo0NDYsImF2YXRhclVybCI6Imh0dHBzOi8vZGV2LWltYWdlLnZ5YWd1dGEubGZ0ZWNobm9sb2d5LmNvbS5ucC9lbXBsb3llZS80OC85OTAucG5nIiwiY3ZVcmwiOiIiLCJlbXBJZCI6Ijk5MCIsImVtcFN0YXR1cyI6IlBlcm1hbmVudCIsImZpcnN0TmFtZSI6IlJvYmluIiwibGFzdE5hbWUiOiJLYXJraSIsImVtYWlsIjoic2Fyb2prYXJraUBsZnRlY2hub2xvZ3kuY29tIiwiZ2VuZGVyIjoiTUFMRSIsImdpdGh1YklkIjoiYXMiLCJpc0hvZCI6ZmFsc2UsImlzSHIiOmZhbHNlLCJpc1JhZmZsZUVsaWdpYmxlIjpmYWxzZSwiaXNTdXBlcnZpc29yIjpmYWxzZSwibWlkZGxlTmFtZSI6bnVsbCwibW9iaWxlUGhvbmUiOiIxMzU3OTg3NjUxIiwidGVtcG9yYXJ5QWRkcmVzcyI6ImFzIiwiYmxvb2RHcm91cCI6IkEtIiwiaXNQcm9qZWN0TWFuYWdlciI6ZmFsc2UsImlzVGVhbUxlYWQiOmZhbHNlLCJpc0FjY291bnRNYW5hZ2VyIjp0cnVlLCJpc0NvYWNoIjpmYWxzZSwiaXNQZW9wbGVPcHMiOmZhbHNlLCJpc1Byb3h5cG0iOmZhbHNlLCJpc1Jlc291cmNlTWFuYWdlciI6ZmFsc2UsImNvYWNoSWQiOjQwMCwic3VwZXJ2aXNvcklkIjo0MzMsImxlYXZlSXNzdWVySWQiOjQzMywicGVybWFuZW50QWRkcmVzcyI6ImFzIiwic2t5cGVJZCI6ImFzIiwiaG9tZVBob25lIjoiIiwiZGF0ZW9mQmlydGgiOiIyMDIwLTEwLTE2VDAwOjAwOjAwLjAwMFoiLCJqb2luRGF0ZSI6IjIwMjAtMDQtMDhUMDA6MDA6MDAuMDAwWiIsIm1hcml0aWFsU3RhdHVzIjoiTWFycmllZCIsImRlcGFydG1lbnRJZCI6MTcsInVzZXJuYW1lIjoic2Fyb2prYXJraUBsZnRlY2hub2xvZ3kuY29tIiwiaXNUZWFtTWFuYWdlciI6dHJ1ZSwiZGVzaWduYXRpb25JZCI6NCwiYXJlYUlkIjo0LCJkZXNpZ25hdGlvbiI6eyJpZCI6NCwibmFtZSI6IlNlbmlvciBTb2Z0d2FyZSBFbmdpbmVlciIsImFyZWEiOnsiaWQiOjQsIm5hbWUiOiJRQSJ9fX0sImlhdCI6MTc3OTg4MTE1NywiZXhwIjoxNzc5OTA5OTU3fQ.iWpiTXO_NeZmB-Jhf7kwVU6fgUm01fMwAVsWqvvEMlo",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
